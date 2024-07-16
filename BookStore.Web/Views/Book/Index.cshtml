@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BookStore.ViewModels.BookViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@* Search Section *@
+@section Search
+{
+<form class="form-inline" asp-action="Search" asp-controller="Book">
+
+     <input class="form-control mr-sm-2" name="term" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Photo</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                <img src="~/Files/Photos/@item.PhotoUrl" width="30" height="30" alt="profile">
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-controller="Book" asp-route-id=@item.Id>Edit</a>
+                    <a asp-action="Details" asp-controller="Book" asp-route-id=@item.Id>Details</a>
+                    <a asp-action="Delete" asp-controller="Book" asp-route-id=@item.Id>Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
